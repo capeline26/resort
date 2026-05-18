@@ -23,6 +23,22 @@
           }
         });
       }
+      const signOutBtn = document.getElementById('signOutBtn');
+
+// Replace this variable with your actual authentication check
+let isSignedIn = true; 
+
+if (isSignedIn) {
+  signOutBtn.classList.remove('hidden');
+}
+
+// Optional: Handle the click event to sign out
+signOutBtn.addEventListener('click', () => {
+  // Add your sign-out logic here (e.g., clearing tokens)
+  isSignedIn = false;
+  signOutBtn.classList.add('hidden');
+});
+
     </script>
   </head>
   <body onload="checkAuthState()">
@@ -57,6 +73,7 @@
     </header>
     <footer class="main-footer">
       <p>Capeline Resort &copy;, 2025</p>
+      <button id="signOutBtn" class="hidden">Sign Out</button>
     </footer>
   </body>
 </html>
