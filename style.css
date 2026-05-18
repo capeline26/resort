@@ -92,4 +92,6 @@ p {
     display: block;
     padding: 15px 17px;
 }
-
+#sign{
+    list-style: none;
+}
