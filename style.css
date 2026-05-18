@@ -87,5 +87,9 @@ p {
     bottom: 0;
     width: 100vw;
 }
-
+#signOutBtn{
+    color: #fff;
+    display: block;
+    padding: 15px 17px;
+}
 
