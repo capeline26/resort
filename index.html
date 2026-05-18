@@ -23,21 +23,33 @@
           }
         });
       }
-      const signOutBtn = document.getElementById('signOutBtn');
+// This function triggers automatically due to your <body onload="..."> tag
+function checkAuthState() {
+  const signOutBtn = document.getElementById('signOutBtn');
+  
+  // Quick safety check: stop if the button isn't found in the HTML
+  if (!signOutBtn) return; 
 
-// Replace this variable with your actual authentication check
-let isSignedIn = true; 
+  // Replace this variable with your actual authentication check logic
+  let isSignedIn = true; 
 
-if (isSignedIn) {
-  signOutBtn.classList.remove('hidden');
+  if (isSignedIn) {
+    signOutBtn.classList.remove('hidden');
+  }
+
+  // Handle the click event safely
+  signOutBtn.addEventListener('click', (e) => {
+    e.preventDefault(); 
+    
+    // Your sign-out logic here (e.g., clearing tokens)
+    isSignedIn = false;
+    signOutBtn.classList.add('hidden');
+    
+    // Optional: Send them to index.html after signing out
+    window.location.href = "index.html"; 
+  });
 }
 
-// Optional: Handle the click event to sign out
-signOutBtn.addEventListener('click', () => {
-  // Add your sign-out logic here (e.g., clearing tokens)
-  isSignedIn = false;
-  signOutBtn.classList.add('hidden');
-});
 
     </script>
   </head>
@@ -74,7 +86,7 @@ signOutBtn.addEventListener('click', () => {
     <footer class="main-footer">
       <p>Capeline Resort &copy;, 2025</p>
       <ul id="sign">
-        <li><a id="signOutBtn" class="hidden">Sign Out</a></li>
+        <li><a href="#" id="signOutBtn" class="hidden">Sign Out</a></li>
       </ul>
     </footer>
   </body>
