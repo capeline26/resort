@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Capeline Registration</title>
+  <!-- Links directly to your register.css to pull your box styles -->
+  <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <header>
+      <nav id="navibar">
+        <div class="container">
+          <a href="index.html">
+            <img
+              src="https://googleusercontent.com"
+              width="55"
+              alt="Capeline Logo"
+            />
+          </a>
+          <ul>
+            <li><a class="current" href="https://mimo.run">Home</a></li>
+            <li><a href="https://mimo.run">Hotels</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <center>
+        <h1 id="micro"> Capeline Registration </h1>
+        
+        <div id="MainForm">
+          <input type="email" placeholder="Email" id="email"><br>
+          <input type="password" placeholder="Password" id="password"><br><br>
+          <button class="btn" type="button" id="regBtn">Register</button>
+           <a href="login.html"><button class="btn" type="button"> Login  </button></a>
+        </div>
+    </center>
+
+    <footer class="main-footer">
+      <p>Capeline Resort &copy;, 2025</p>
+    </footer>
+
+    <!-- Cleaned up module script containing your exact fixed paths -->
+    <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBFzRkzMpJjzVNb_F8QkeK2SvG7PKwqaSs",
+        authDomain: "://firebaseapp.com",
+        projectId: "capeline-2025",
+        storageBucket: "capeline-2025.firebasestorage.app",
+        messagingSenderId: "859781491770",
+        appId: "1:859781491770:web:d85f35735dd7f464c89903"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      document.getElementById('regBtn').addEventListener('click', function() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (!email || !password) {
+          alert("Please enter both fields.");
+          return;
+        }
+
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            alert("Registration Complete. Login with your details");
+          })
+          .catch((error) => {
+            alert("Firebase Error: " + error.message);
+          });
+      });
+    </script>
+</body>
+</html>
