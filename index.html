@@ -15,42 +15,41 @@
         messagingSenderId: "859781491770",
         appId: "1:859781491770:web:d85f35735dd7f464c89903",
       };
+      
+      // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+
+      // This single function handles both the redirect logic and the Sign Out button visibility
       function checkAuthState() {
         firebase.auth().onAuthStateChanged(function (user) {
+          const signOutBtn = document.getElementById('signOutBtn');
+
           if (!user) {
+            // 1. If user is NOT signed in, force redirect to login screen
             window.location.href = "login.html";
+          } else {
+            // 2. If user IS signed in, show the Sign Out button
+            if (signOutBtn) {
+              signOutBtn.classList.remove('hidden');
+            }
           }
         });
+
+        // 3. Set up the click action for the Sign Out button safely
+        const signOutBtn = document.getElementById('signOutBtn');
+        if (signOutBtn) {
+          signOutBtn.addEventListener('click', function (e) {
+            e.preventDefault(); 
+            
+            // This securely ends the user session in Firebase
+            firebase.auth().signOut().then(function() {
+              window.location.href = "login.html"; 
+            }).catch(function(error) {
+              alert("Error signing out: " + error.message);
+            });
+          });
+        }
       }
-// This function triggers automatically due to your <body onload="..."> tag
-function checkAuthState() {
-  const signOutBtn = document.getElementById('signOutBtn');
-  
-  // Quick safety check: stop if the button isn't found in the HTML
-  if (!signOutBtn) return; 
-
-  // Replace this variable with your actual authentication check logic
-  let isSignedIn = true; 
-
-  if (isSignedIn) {
-    signOutBtn.classList.remove('hidden');
-  }
-
-  // Handle the click event safely
-  signOutBtn.addEventListener('click', (e) => {
-    e.preventDefault(); 
-    
-    // Your sign-out logic here (e.g., clearing tokens)
-    isSignedIn = false;
-    signOutBtn.classList.add('hidden');
-    
-    // Optional: Send them to index.html after signing out
-    window.location.href = "index.html"; 
-  });
-}
-
-
     </script>
   </head>
   <body onload="checkAuthState()">
@@ -61,6 +60,7 @@ function checkAuthState() {
             <img
               src="https://lh3.googleusercontent.com/pw/AP1GczPmHDkunERphMPwdcKYDfyH_wbUxCGzbz5NDt-6GtW1I-z15_pLxZjQ-sASPmvfG9_s--BOFu8GIQKvqU9A1Wu8sihq0dZxEHXR4A6hvCaIwp_qL7V5DUBIV5Ob-sUMMSw0XRsVKccQ6iEsNL06fcg=w182-h186-s-no-gm?authuser=0"
               width="55"
+              alt="Logo"
             />
           </a>
           <ul>
